@@ -5,23 +5,145 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Costa Rica Weather</title>
+  <title>Explore Mars</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 
 <body>
   <div class="container-fluid">
     <div class="jumbotron text-center">
-      <h1>Visit the...</h1>
-      <p>Beach. Rainforest. Volcano. Tree House. Sloths.</p>
-      <p><a class="btn btn-primary btn-lg" href="/scrape" role="button">Get Data!</a></p>
+      <h1 >Mission to Mars</h1>
+      <p><a class="btn btn-primary btn-lg" href="/scrape" role="button">Scrape New Data</a></p>
     </div>
-    <img src="{{ vacation.sloth_img }}" alt="Sloth">
-    <h2>The typical weather in Costa Rica is:</h2>
-    <h3>Max Temp: {{ vacation.max_temp }}</h3>
-    <h3>Min Temp: {{ vacation.min_temp }}</h3>
+ 
+   <div class="row">
+     <h1> Latest Headlines</h1>
+     <h2> {{mars.new_p}} </h2>
+     <p>{{mars.news_article}}</p>
+   </div>
+  <div class="row">
+    <div class= "col-lg-8 col-md-12">
+      <h1>Feature image </h1>
+      <img src="{{mars.space_ig}}" alt="Mars">
+     </div>
+     <div class= "col-lg-4 col-md-12">
+       <div class="row">
+         #CODE
+        </div>
+        <div class="row">
+          <table border="1" class="dataframe">
+            <thead>
+              <tr style="text-align: right;">
+                <th></th>
+                <th></th>
+                <th>value</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th>0</th>
+                <td>description</td>
+                <td></td>
+              </tr>
+              <tr>
+                <th>1</th>
+                <td>Equatorial Diameter:</td>
+                <td>6,792 km</td>
+              </tr>
+              <tr>
+                <th>2</th>
+                <td>Polar Diameter:</td>
+                <td>6,752 km</td>
+              </tr>
+              <tr>
+                <th>3</th>
+                <td>Mass:</td>
+                <td>6.39 × 10^23 kg (0.11 Earths)</td>
+              </tr>
+              <tr>
+                <th>4</th>
+                <td>Moons:</td>
+                <td>2 (Phobos &amp; Deimos)</td>
+              </tr>
+              <tr>
+                <th>5</th>
+                <td>Orbit Distance:</td>
+                <td>227,943,824 km (1.38 AU)</td>
+              </tr>
+              <tr>
+                <th>6</th>
+                <td>Orbit Period:</td>
+                <td>687 days (1.9 years)</td>
+              </tr>
+              <tr>
+                <th>7</th>
+                <td>Surface Temperature:</td>
+                <td>-87 to -5 °C</td>
+              </tr>
+              <tr>
+                <th>8</th>
+                <td>First Record:</td>
+                <td>2nd millennium BC</td>
+              </tr>
+              <tr>
+                <th>9</th>
+                <td>Recorded By:</td>
+                <td>Egyptian astronomers</td>
+              </tr>
+            </tbody>
+          </table>
+        
+        </div>
+    </div>
+
   </div>
+  <div class="row">
+     <h2> Mars Hemisphere </h2>
+    <hr>
   </div>
+  <div class="row">
+    <div class="col-lg-6 col-sm-12" >
+      <div class="card" style="width: 20rem;">
+        <div class="card-body">
+          <h4 class="card-title">{{ mars.hemisphere[0].title}}</h4>
+          <img src="{{mars.hemisphere[0].img_url}}" alt="Mars">
+        </div>
+        </div>
+        </div>
+
+
+    
+    <div class="col-lg-6 col-sm-12" >
+      <div class="card" style="width: 20rem;">
+        <div class="card-body">
+          <h4 class="card-title">{{ mars.hemisphere[1].title}}</h4>
+          <img src="{{mars.hemisphere[1].img_url}}" alt="Mars">
+        </div>
+      </div>
+      </div>
+
+    <div class="col-lg-6 col-sm-12" >
+      <div class="card" style="width: 20rem;">
+        <div class="card-body">
+          <h4 class="card-title">{{ mars.hemisphere[2].title}}</h4>
+          <img src="{{mars.hemisphere[2].img_url}}" alt="Mars">
+        </div>
+      </div>
+      </div>
+    <div class="col-lg-6 col-sm-12" >
+      <div class="card" style="width: 20rem;">
+        <div class="card-body">
+          <h4 class="card-title">{{ mars.hemisphere[3].title}}</h4>
+          <img src="{{mars.hemisphere[1].img_url}}" alt="Mars">
+      </div>
+      </div>
+      </div>
+      
+    
+
+  </div>
+
+</div>
 </body>
 
 </html>
