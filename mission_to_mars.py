@@ -11,66 +11,16 @@ def init_browser():
     return Browser("chrome", **executable_path, headless=False)
 
 
-
-
-def space_image(browser):
-        url2="https://www.jpl.nasa.gov/spaceimages/"
-        browser.visit(url2)
-        time.sleep(1)
-        html = browser.html
-        soup = BeautifulSoup(html, 'html.parser')
-        img_url = soup.find('article', class_='carousel_item')["style"].split("'")[1]
-        featured_image_url="http://www.jpl.nasa.gov"+img_url
-        browser.quit()
-        return featured_image_url
-
-def image_dict(browser):
-    astro_url="https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars"
-    browser.visit(astro_url)
-    head_url=astro_url.split("search")[0]
-    time.sleep(1)
-    html = browser.html
-    soup_ast=BeautifulSoup(html, "html.parser")
-    hemisphere_images_url =[]
-    hemp_list=soup_ast.find_all('div', class_="item")
-    for hemp in hemp_list:
-        try:
-            title= hemp.find('h3').text
-            hem_imp= hemp.img["src"]
-            image=head_url+img_url
-            if (title and image):
-                post = {
-                'titles': title,
-                'image_url': image
-                  }
-                print(title)
-                print(image)
-            hemisphere_images_url.append(post)
-        except Exception as e:
-                print ("")
-   
-    return hemisphere_images_url
-
-
-
-def new_info(browser): 
-    url = 'https://mars.nasa.gov/news/?page=0&per_page=40&order=publish_date+desc%2Ccreated_at+desc&search=&category=19%2C165%2C184%2C204&blank_scope=Latest'
-    browser.visit(url)
-    time.sleep(1)
-    html = browser.html
-    soup = BeautifulSoup(html, 'html.parser')
-    news_article = soup.find_all('div', class_='content_title')[1].a.text
-    news_p=soup.find('div', class_='article_teaser_body').text
-
-
-    browser.quit()
-    return news_article, news_p
-
 def scrape_info(): 
     browser =init_browser()
-    space_ig= space_image(browser)
-    image_dic=image_dict(browser)
+    time.sleep(10)
+    image_dic=image_dict()
     news=new_info(browser)
+    time.sleep(10)
+    space_ig= space_image(browser)
+    time.sleep(10)
+   
+  
    
    
     mars_data = {
@@ -81,7 +31,58 @@ def scrape_info():
                   }
     
     browser.quit()
+    print (mars_data)
     return mars_data
+
+def space_image(browser):
+        url2="https://www.jpl.nasa.gov/spaceimages/"
+        browser.visit(url2)
+        time.sleep(10)
+        html = browser.html
+        soup = BeautifulSoup(html, 'html.parser')
+        img_url = soup.find('article', class_='carousel_item')["style"].split("'")[1]
+        featured_image_url="http://www.jpl.nasa.gov"+img_url
+       
+        return featured_image_url
+
+def image_dict():
+    astro_url="https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars"
+    response=requests.get(astro_url)
+    print(response)
+    head_url=astro_url.split("search")[0]
+    soup_ast=BeautifulSoup(response.text, "html.parser")
+    hemisphere_images_url =[]
+    hemp_list=soup_ast.find_all('div', class_="item")
+    for hemp in hemp_list:
+        title= hemp.find('h3').text
+        hem_imp= hemp.img["src"]
+        image=head_url+hem_imp
+        if (title and image):
+            post = {
+                'titles': title,
+                'image_url': image
+                 }
+        hemisphere_images_url.append(post)
+    print(hemisphere_images_url)
+
+    return hemisphere_images_url
+
+
+def new_info(browser): 
+    url = 'https://mars.nasa.gov/news'
+    browser.visit(url)
+    time.sleep(10)
+    html = browser.html
+    soup = BeautifulSoup(html, 'html.parser')
+    news_article = soup.find_all('div', class_='content_title')[1].a.text
+    news_p=soup.find('div', class_='article_teaser_body').text
+    
+
+ 
+    return news_article, news_p
+
+
+
 
 
 
