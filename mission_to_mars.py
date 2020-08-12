@@ -19,11 +19,12 @@ def scrape_info():
     time.sleep(10)
     space_ig= space_image(browser)
     time.sleep(10)
-   
+    m_tweet=tweet(browser)
+    time.sleep(10)
   
    
    
-    mars_data = {
+    mars_data = {'tweet':m_tweet,
                 'news_title': news[0],
                 'news_p': news[1],
                  'hemisphere': image_dic,
@@ -80,7 +81,20 @@ def new_info(browser):
 
  
     return news_article, news_p
+def tweet(browser): 
+    url = "https://twitter.com/marswxreport?lang=en"
+    browser.visit(url)
+    time.sleep(10)
+    html = browser.html
+    weather_soup = BeautifulSoup(html, "html.parser")
+    Tweet=weather_soup.find_all('span', class_='css-901oao css-16my406 r-1qd0xha r-ad9z0x r-bcqeeo r-qvutc0')
+    mars_tweet=Tweet[38].text
 
+    
+    
+
+ 
+    return mars_tweet
 
 
 
