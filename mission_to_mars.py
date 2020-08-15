@@ -3,7 +3,7 @@ import requests
 import pymongo
 from splinter import Browser
 import time
-
+import pandas as pd
 def init_browser():
     # @NOTE: Replace the path with your actual path to the chromedriver
     #for mac users
@@ -21,6 +21,7 @@ def scrape_info():
     time.sleep(10)
     m_tweet=tweet(browser)
     time.sleep(10)
+    html_table= table()
   
    
    
@@ -28,7 +29,8 @@ def scrape_info():
                 'news_title': news[0],
                 'news_p': news[1],
                  'hemisphere': image_dic,
-                 'feature_image_url': space_ig
+                 'feature_image_url': space_ig,
+                 'html_table': html_table
                   }
     
     browser.quit()
@@ -88,15 +90,26 @@ def tweet(browser):
     html = browser.html
     weather_soup = BeautifulSoup(html, "html.parser")
     Tweet=weather_soup.find_all('span', class_='css-901oao css-16my406 r-1qd0xha r-ad9z0x r-bcqeeo r-qvutc0')
-    mars_tweet=Tweet[38].text
+    mars_tweet=Tweet[31].text
+    
 
     
     
 
  
     return mars_tweet
-
-
+def table(): 
+    facts_url ="https://space-facts.com/mars/"
+    tables = pd.read_html(facts_url)
+    Mars_df = tables[2]    
+    d=[]
+    dataz={0: "description",1:""}
+    d.append(dataz)
+    Mars_df.columns=['', 'value']
+    html_table_1 = Mars_df.to_html(index=False)
+    
+    return html_table_1
+ 
 
 
 
